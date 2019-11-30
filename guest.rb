@@ -8,8 +8,8 @@ class Guest
     @favorite_song = favorite_song
   end
 
-  def found_favorite_song(song)
-    return 'Whooo!' if song.name == @favorite_song
-  end
+  # def found_favorite_song(song)
+  #   return 'Whooo!' if song.name == @favorite_song
+  # end
 
 end

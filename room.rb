@@ -50,8 +50,9 @@ class Room
     return @playlist.length
   end
 
-  # def list_of_song_names
-  #   guest_names = @playlist.map {|song| song.name}
-  #
+  def found_favorite_song(guest)
+    song_names = @playlist.map {|song| song.name}
+    song_names.find {|song| return "Whooo" if song == guest.favorite_song}
+  end
 
 end

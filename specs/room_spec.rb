@@ -5,7 +5,7 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 require_relative('../song')
 require_relative('../guest')
 require_relative('../room')
-require_relative('../bar')
+require_relative('../bartab')
 
 
 class TestRoom < Minitest::Test
@@ -15,6 +15,7 @@ class TestRoom < Minitest::Test
     @guest2 = Guest.new('John', 50, 'Come Together')
     @song1 = Song.new('Wonderwall')
     @song2 = Song.new('Come Together')
+    @bartab = BarTab.new(10)
     @room = Room.new('Red Room', 4)
   end
 
@@ -55,10 +56,6 @@ class TestRoom < Minitest::Test
     assert_equal(["Matteo", "John"], @room.get_list_of_guest_names)
   end
 
-  def test_customer_finds_favorite_song
-
-  end
-
   # def test_can_get_names_of_removed_guests
   #   @room.add_guest(@guest1)
   #   @room.add_guest(@guest2)
@@ -69,6 +66,14 @@ class TestRoom < Minitest::Test
   def test_can_add_song_to_playlist
     @room.add_song_to_playlist(@song1)
     assert_equal(1, @room.number_of_songs)
+  end
+
+  def test_customer_finds_favorite_song
+    @room.add_guest(@guest1)
+    @room.add_guest(@guest2)
+    @room.add_song_to_playlist(@song1)
+    @room.add_song_to_playlist(@song2)
+    assert_equal("Whooo", @room.found_favorite_song(@guest1))
   end
 
 
