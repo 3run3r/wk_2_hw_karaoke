@@ -15,20 +15,22 @@ class TestRoom < Minitest::Test
     @guest2 = Guest.new('John', 50, 'Come Together')
     @song1 = Song.new('Wonderwall')
     @song2 = Song.new('Come Together')
-    @bartab = BarTab.new(10)
+    @bartab = BarTab.new(10, 1000)
     @room = Room.new('Red Room', 4)
   end
 
   def test_add_guest_to_space
-    @room.add_guest(@guest1)
+    @room.add_guest(@guest1, @bartab)
     assert_equal(1, @room.number_of_guests)
+    assert_equal(90, @guest1.wallet)
+    assert_equal(1010, @bartab.till)
   end
 
 # TO REVIEW:
 
   def test_can_add_guest_to_space_capacity_not_reached
-    @room.add_guest(@guest1)
-    @room.add_guest(@guest1)
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest1, @bartab)
     assert_equal("We still have some space left!", @room.check_if_space_full)
   end
   #
@@ -44,15 +46,15 @@ class TestRoom < Minitest::Test
   # end
 
   def test_can_remove_guest
-    @room.add_guest(@guest1)
-    @room.add_guest(@guest2)
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest2, @bartab)
     @room.remove_guest(@guest1)
     assert_equal(1, @room.number_of_guests)
   end
 
   def test_get_list_of_guest_names
-    @room.add_guest(@guest1)
-    @room.add_guest(@guest2)
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest2, @bartab)
     assert_equal(["Matteo", "John"], @room.get_list_of_guest_names)
   end
 
@@ -69,8 +71,8 @@ class TestRoom < Minitest::Test
   end
 
   def test_customer_finds_favorite_song
-    @room.add_guest(@guest1)
-    @room.add_guest(@guest2)
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest2, @bartab)
     @room.add_song_to_playlist(@song1)
     @room.add_song_to_playlist(@song2)
     assert_equal("Whooo", @room.found_favorite_song(@guest1))

@@ -8,9 +8,11 @@ class Room
     @capacity = capacity
   end
 
-  def add_guest(guest)
+  def add_guest(guest, bartab)
     if @space.length < @capacity
       @space.push(guest)
+      bartab.add_to_till
+      guest.pays_fee(bartab)
     end
   end
 
