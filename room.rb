@@ -11,12 +11,34 @@ class Room
   def add_guest(guest)
     if @space.length < @capacity
       @space.push(guest)
-    else
-      return "We're full sorry"
     end
   end
 
-  def number_of_songs
+  def remove_guest(guest_to_find)
+    @space.find {|guest|
+      @space.delete(guest) if guest == guest_to_find}
+  end
+
+  # def return_removed_guests(guest_to_find)
+  #   removed_guests = remove_guest(guest_to_find)
+  #   removed_guests_names = removed_guests.map {|guest| guest.name}
+  # end
+
+  def get_list_of_guest_names
+    guest_names = @space.map {|guest| guest.name}
+  end
+
+# TO REVIEW:
+
+  def check_if_space_full
+    if @capacity < @space.length
+      return "Sorry, we're full!"
+    else
+      return "We still have some space left!"
+    end
+  end
+
+  def number_of_guests
     return @space.length
   end
 
@@ -24,8 +46,12 @@ class Room
     @playlist.push(song)
   end
 
-  # def playlist_result
-  #   @playlist.each {|song| name}
-  # end
+  def number_of_songs
+    return @playlist.length
+  end
+
+  # def list_of_song_names
+  #   guest_names = @playlist.map {|song| song.name}
+  #
 
 end

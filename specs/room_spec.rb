@@ -12,29 +12,64 @@ class TestRoom < Minitest::Test
 
   def setup
     @guest1 = Guest.new('Matteo', 100, 'Wonderwall')
+    @guest2 = Guest.new('John', 50, 'Come Together')
     @song1 = Song.new('Wonderwall')
     @song2 = Song.new('Come Together')
-    @room = Room.new('Red Room', 1)
+    @room = Room.new('Red Room', 4)
   end
 
-  def test_can_add_guest_to_space
+  def test_add_guest_to_space
     @room.add_guest(@guest1)
-    assert_equal(1, @room.number_of_songs)
+    assert_equal(1, @room.number_of_guests)
   end
 
-  def test_cant_add_guests_anymore_reached_capacity
+# TO REVIEW:
+
+  def test_can_add_guest_to_space_capacity_not_reached
     @room.add_guest(@guest1)
     @room.add_guest(@guest1)
-    assert_equal(1, @room.number_of_songs)
+    assert_equal("We still have some space left!", @room.check_if_space_full)
   end
-
-
-
-  # def test_can_add_song_to_playlist
-  #   @room.add_song_to_playlist(@song1)
-  #   @room.add_song_to_playlist(@song2)
-  #   assert_equal(['Wonderwall', 'Come Together'], @room.playlist_result )
+  #
+  # def test_cant_add_guests_anymore_reached_capacity
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest1)
+  #   assert_equal("Sorry, we're full!", @room.check_if_space_full)
   # end
+
+  def test_can_remove_guest
+    @room.add_guest(@guest1)
+    @room.add_guest(@guest2)
+    @room.remove_guest(@guest1)
+    assert_equal(1, @room.number_of_guests)
+  end
+
+  def test_get_list_of_guest_names
+    @room.add_guest(@guest1)
+    @room.add_guest(@guest2)
+    assert_equal(["Matteo", "John"], @room.get_list_of_guest_names)
+  end
+
+  def test_customer_finds_favorite_song
+
+  end
+
+  # def test_can_get_names_of_removed_guests
+  #   @room.add_guest(@guest1)
+  #   @room.add_guest(@guest2)
+  #   removed_guest = @room.remove_guest(@guest1)
+  #   assert_equal(["John"], removed_guest)
+  # end
+
+  def test_can_add_song_to_playlist
+    @room.add_song_to_playlist(@song1)
+    assert_equal(1, @room.number_of_songs)
+  end
 
 
 
