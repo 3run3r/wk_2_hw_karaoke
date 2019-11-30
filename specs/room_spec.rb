@@ -28,27 +28,24 @@ class TestRoom < Minitest::Test
 
 # TO REVIEW:
 
-  def test_can_add_guest_to_space_capacity_not_reached
-    @room.add_guest(@guest1, @bartab)
-    @room.add_guest(@guest1, @bartab)
-    assert_equal("We still have some space left!", @room.check_if_space_full)
-  end
-  #
-  # def test_cant_add_guests_anymore_reached_capacity
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest1)
-  #   assert_equal("Sorry, we're full!", @room.check_if_space_full)
+  # def test_can_add_guest_to_space_capacity_not_reached
+  #   @room.add_guest(@guest1, @bartab)
+  #   @room.add_guest(@guest1, @bartab)
+  #   assert_equal("We still have some space left!", @room.check_if_space_full)
   # end
+
+  def test_cant_add_guests_anymore_reached_capacity
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest1, @bartab)
+    assert_equal("Sorry, we're full", @room.add_guest(@guest1, @bartab))
+  end
 
   def test_can_remove_guest
     @room.add_guest(@guest1, @bartab)
     @room.add_guest(@guest2, @bartab)
-    @room.remove_guest(@guest1)
+    @room.remove_guest("Matteo")
     assert_equal(1, @room.number_of_guests)
   end
 

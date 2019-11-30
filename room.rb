@@ -13,12 +13,14 @@ class Room
       @space.push(guest)
       bartab.add_to_till
       guest.pays_fee(bartab)
+    else
+      return "Sorry, we're full"
     end
   end
 
   def remove_guest(guest_to_find)
     @space.find {|guest|
-      @space.delete(guest) if guest == guest_to_find}
+      @space.delete(guest) if guest.name == guest_to_find}
   end
 
   # def return_removed_guests(guest_to_find)
@@ -32,12 +34,8 @@ class Room
 
 # TO REVIEW:
 
-  def check_if_space_full
-    if @capacity < @space.length
-      return "Sorry, we're full!"
-    else
+  def space_left
       return "We still have some space left!"
-    end
   end
 
   def number_of_guests
