@@ -21,24 +21,16 @@ class Room
   end
 
   def remove_guest(guest_to_find)
-    @space.find {|guest|
+    if @space.find {|guest|
       @space.delete(guest) if guest.name == guest_to_find}
+    else
+      return "Sorry, can't find this guest"
+    end
   end
-
-  # def return_removed_guests(guest_to_find)
-  #   removed_guests = remove_guest(guest_to_find)
-  #   removed_guests_names = removed_guests.map {|guest| guest.name}
-  # end
 
   def get_list_of_guest_names
-    guest_names = @space.map {|guest| guest.name}
+    return @space.map {|guest| guest.name}
   end
-
-# TO REVIEW:
-
-  # def space_left
-  #     return "We still have some space left!"
-  # end
 
   def number_of_guests
     return @space.length
