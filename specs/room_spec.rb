@@ -54,6 +54,12 @@ class TestRoom < Minitest::Test
     assert_equal(1, @room.number_of_guests)
   end
 
+  def test_cant_find_guest_name
+    @room.add_guest(@guest1, @bartab)
+    @room.add_guest(@guest2, @bartab)
+    assert_equal("Sorry, can't find this guest", @room.remove_guest("Ross"))
+  end
+
   def test_get_list_of_guest_names
     @room.add_guest(@guest1, @bartab)
     @room.add_guest(@guest2, @bartab)
