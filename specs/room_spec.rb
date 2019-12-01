@@ -27,14 +27,6 @@ class TestRoom < Minitest::Test
     assert_equal(1010, @bartab.till)
   end
 
-# TO REVIEW:
-
-  # def test_can_add_guest_to_space_capacity_not_reached
-  #   @room.add_guest(@guest1, @bartab)
-  #   @room.add_guest(@guest1, @bartab)
-  #   assert_equal("We still have some space left!", @room.check_if_space_full)
-  # end
-
   def test_cant_add_guests_anymore_reached_capacity
     @room.add_guest(@guest1, @bartab)
     @room.add_guest(@guest1, @bartab)
@@ -65,13 +57,6 @@ class TestRoom < Minitest::Test
     @room.add_guest(@guest2, @bartab)
     assert_equal(["Matteo", "John"], @room.get_list_of_guest_names)
   end
-
-  # def test_can_get_names_of_removed_guests
-  #   @room.add_guest(@guest1)
-  #   @room.add_guest(@guest2)
-  #   removed_guest = @room.remove_guest(@guest1)
-  #   assert_equal(["John"], removed_guest)
-  # end
 
   def test_can_add_song_to_playlist
     @room.add_song_to_playlist(@song1)
