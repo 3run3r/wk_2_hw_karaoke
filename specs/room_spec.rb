@@ -13,6 +13,7 @@ class TestRoom < Minitest::Test
   def setup
     @guest1 = Guest.new('Matteo', 100, 'Wonderwall')
     @guest2 = Guest.new('John', 50, 'Come Together')
+    @guest3 = Guest.new('Scott', 5, 'Creep')
     @song1 = Song.new('Wonderwall')
     @song2 = Song.new('Come Together')
     @bartab = BarTab.new(10, 1000)
@@ -40,6 +41,10 @@ class TestRoom < Minitest::Test
     @room.add_guest(@guest1, @bartab)
     @room.add_guest(@guest1, @bartab)
     assert_equal("Sorry, we're full", @room.add_guest(@guest1, @bartab))
+  end
+
+  def test_cant_add_guests_anymore_not_enough_money
+    assert_equal("Sorry, you don't have enough money", @room.add_guest(@guest3, @bartab))
   end
 
   def test_can_remove_guest

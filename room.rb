@@ -9,12 +9,14 @@ class Room
   end
 
   def add_guest(guest, bartab)
-    if @space.length < @capacity
+    if @space.length >= @capacity
+      return "Sorry, we're full"
+    elsif guest.wallet < bartab.entry_fee
+      return "Sorry, you don't have enough money"
+    else
       @space.push(guest)
       bartab.add_to_till
       guest.pays_fee(bartab)
-    else
-      return "Sorry, we're full"
     end
   end
 
@@ -34,9 +36,9 @@ class Room
 
 # TO REVIEW:
 
-  def space_left
-      return "We still have some space left!"
-  end
+  # def space_left
+  #     return "We still have some space left!"
+  # end
 
   def number_of_guests
     return @space.length
